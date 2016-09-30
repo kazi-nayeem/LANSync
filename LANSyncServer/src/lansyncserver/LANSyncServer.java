@@ -17,7 +17,7 @@ public class LANSyncServer {
      * @param args the command line arguments
      */
     public final static int SOCKET_PORT = 13267;  // you may change this
-    public static String FILE_DEFAULT_PATH = "D:\\LANSync\\server\\";
+    public static String FILE_DEFAULT_PATH = "C:\\LANSync\\server\\";
     public static Server smsserver;
 
     public static void main(String[] args) throws IOException {

@@ -38,7 +38,7 @@ public class LoginFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        ipTextField.setText("192.168.0.150");
+        ipTextField.setText("192.168.0.151");
 
         jLabel1.setText("IP:");
 
