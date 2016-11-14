@@ -28,7 +28,7 @@ public class Server {
     private ObjectOutputStream output = null;
 
     public Server(int port) {
-        Thread t = null;
+        Thread t;
         t = new Thread(new Runnable() {
 
             @Override
@@ -58,7 +58,7 @@ public class Server {
                 System.out.println("accoted");
 
                 recieveMessage();
-                
+
             } catch (IOException ex) {
                 //Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -106,6 +106,7 @@ public class Server {
     }
 
     private void closeConnection() {
+        LANSyncServer.IS_CLIENT_ALIVE = false;
         try {
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             if (connection != null) {
@@ -124,17 +125,23 @@ public class Server {
 
     private void recieveMessage() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        String msg = null;
-        do {
-            try {
-                msg = (String) input.readObject();
-                displayMessage("\nCLIENT >> " + msg);
-                HandleProcess.handleProcess(msg);
-            } catch (IOException | ClassNotFoundException ex) {
-                Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-                return;
-            }
-        } while (!msg.equals("EXIT"));
+        LANSyncServer.IS_CLIENT_ALIVE = true;
+        new SyncRequestServer();
+        try {
+            String msg = null;
+            do {
+                try {
+                    msg = (String) input.readObject();
+                    displayMessage("\nCLIENT >> " + msg);
+                    HandleProcess.handleProcess(msg);
+                } catch (IOException | ClassNotFoundException ex) {
+                    Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+                    return;
+                }
+            } while (!msg.equals("EXIT"));
+        } finally {
+            LANSyncServer.IS_CLIENT_ALIVE = false;
+        }
     }
 
     void sendMessage(String msg) {
@@ -149,5 +156,5 @@ public class Server {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

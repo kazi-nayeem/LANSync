@@ -38,7 +38,12 @@ public class LoginFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        ipTextField.setText("192.168.0.151");
+        ipTextField.setText("10.100.37.44");
+        ipTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ipTextFieldActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("IP:");
 
@@ -96,12 +101,16 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
-
+        LANSyncClient.SERVER = ipTextField.getText().trim();
         if (!tryToLogIn(ipTextField.getText().trim(), Integer.parseInt(portTextField.getText().trim()))) {
             JOptionPane.showMessageDialog(this, "try again");
         }
 
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void ipTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ipTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ipTextFieldActionPerformed
 
     /**
      * @param args the command line arguments

@@ -14,7 +14,7 @@ import java.io.IOException;
 public class LANSyncClient {
 
     public final static int SOCKET_PORT = 13267;      // you may change this
-    public final static String SERVER = "192.168.0.151";  // localhost
+    public static String SERVER;  // localhost
     // you may change this, I give a
     // different name because i don't want to
     // overwrite the one used by server...
